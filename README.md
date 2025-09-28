@@ -1,6 +1,5 @@
 # 🛡️ Demonstração da utilização do Semgrep 🛡️
--
-Esse experimento foi desenvolvido para compreender os pontos fortes do Semgrep e como ele pode auxiliar na descoberta de vulnerabilidades em projetos de software. O script `app.py` foi implementado com vulnerabilidades intencionais para que o Semgrep possa detetá-las.
+- Esse experimento foi desenvolvido para compreender os pontos fortes do Semgrep e como ele pode auxiliar na descoberta de vulnerabilidades em projetos de software. O script `app.py` foi implementado com vulnerabilidades intencionais para que o Semgrep possa detetá-las.
 ---
 
 ## ⚙️ 1. Configuração e Execução do Projeto
