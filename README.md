@@ -54,21 +54,25 @@ Para garantir uma análise consistente e contornar problemas de rede ou de cache
 - *Risco*: Qualquer pessoa com acesso ao código pode roubar esta credencial.
 - *Solução*: Mover o segredo para um arquivo `.env` e carregá-lo como uma variável de ambiente.
 - *Detecção*: Encontrada pelas regras do conjunto `generic/secrets`.
+
 **VULNERABILIDADE 2: Padrão de código inseguro**
 - *Problema*: A chamada à API externa com a biblioteca requests não define um tempo limite de espera.
 - *Risco*: Se a API do Hugging Face estiver indisponível, a aplicação pode ficar "congelada" indefinidamente, causando uma Negação de Serviço (DoS).
 - *Solução*: Adicionar um parâmetro `timeout` à chamada `requests.get()`.
 - *Detecção*: Encontrada pela nossa regra personalizada em `rules.yml` e também pela regra comunitária `python.requests.best-practice.use-timeout`.
+
 **VULNERABILIDADE 3: SQL Injection**
 - *Problema*: Os dados externos são inseridos diretamente na query do banco de dados através da formatação de uma string.
 - *Risco*: Um atacante pode fornecer uma entrada maliciosa (ex: `'; DROP TABLE models; --"`) para manipular ou destruir o banco de dados. O uso de `cursor.executescript` agrava o risco.
 - *Solução*: Usar consultas parametrizadas, passando os valores como um tuplo separado do comando SQL (ex: `cursor.execute(query, (var1, var2))`).
 - *Detecção*: Encontrada pelas regras do conjunto `python/lang/security`.
+
 **VULNERABILIDADE 4: Execução de código remoto**
 - *Problema*: A função `eval(`) executa qualquer texto como se fosse um comando Python.
 - *Risco*: Esta é uma vulnerabilidade crítica. Se um atacante controlar a entrada da função, ele pode executar qualquer comando no servidor, obtendo controlo total sobre a máquina.
 - *Solução*: `eval()` por uma alternativa segura e específica, como `ast.literal_eval`, que avalia apenas estruturas de dados literais (listas, dicionários, etc.) e não executa código.
 - *Detecção*: Encontrada pelas regras do conjunto `python/lang/security`.
+
 **VULNERABILIDADE 5: Bug de lógica com implicações de segurança**
 - *Problema*:  A função `cache_model_results` usa um dicionário mutável (`{}`) como valor padrão para um argumento.
 - *Risco*: O mesmo dicionário é partilhado entre todas as chamadas à função, causando bugs e permitindo que os dados de um utilizador vazem para o cache de outro num ambiente multi-utilizador.
