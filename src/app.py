@@ -3,7 +3,7 @@ import sqlite3
 import requests
 from dotenv import load_dotenv
 
-# token que permite o acesso a base de dados do HF
+# VULNERABILIDADE 1: segredo exposto hardcoded  
 HF_TOKEN = "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"
 
 # minha base local, que eu vou salvar os dados do HF
@@ -27,6 +27,7 @@ def get_model_info(model_id: str):
   api_url = f"https://huggingface.co/api/models/{model_id}"
   headers = {"Authorization": f"Bearer {HF_TOKEN}"}
 
+  # VULNERABILIDADE 2: padrão de código inseguro, falta um timeout
   try:
     response = requests.get(api_url, headers=headers)
     return response.json()
@@ -42,6 +43,7 @@ def save_model_info(model_data: dict):
   conn = sqlite3.connect(DB_FILE)
   cursor = conn.cursor()
 
+  # VULNERABILIDADE 3: SQL injection
   query = f"INSERT INTO models (model_id, author, likes) VALUES ('{model_id}', '{author}', {likes})"
   cursor.executescript(query)
 
@@ -50,9 +52,11 @@ def save_model_info(model_data: dict):
   print(f"Modelo '{model_id}' salvo com sucesso.")
 
 def process_evaluation(evaluation_string: str):
+  # VULNERABILIDADE 4: execução do código através de eval
   result = eval(evaluation_string)
   return result
 
+# VULNERABILIDADE 5: bug de lógica com problemas de segurança
 def cache_model_results(model_id, results, cache={}):
   cache[model_id] = results
   print(f"Cache atual: {cache}")

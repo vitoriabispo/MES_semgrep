@@ -1,0 +1,8 @@
+rules:
+  - id: enforce-requests-timeout-hf
+    languages: [python]
+    message: "Toda chamada a biblioteca `requests` deve ter um `timeout` definido para evitar que a aplicação trave esperando a API do Hugging Face. Ex: `requests.get(url, timeout=10)`."
+    severity: WARNING
+    patterns:
+      - pattern-not-inside: requests.$METHOD(... , timeout=..., ...)
+      - pattern: requests.$METHOD(...)
