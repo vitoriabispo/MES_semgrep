@@ -45,7 +45,7 @@ Para garantir uma análise consistente e contornar problemas de rede ou de cache
 **2. Execute a análise via Docker**
 ```bash
     cd src
-    docker run --rm -v "${pwd}:/src" -v "../semgrep-rules:/regras" semgrep/semgrep semgrep scan --config "/regras/python" --config "/regras/generic" --config "/src/rules.yml" /src
+    docker run --rm -v "${pwd}:/MES_semgrep" semgrep/semgrep semgrep scan --config "/MES_semgrep/semgrep-rules/python" --config "/MES_semgrep/semgrep-rules/generic" --config "/MES_semgrep/src/rules.yml" /MES_semgrep/src
 
 ```
 ----
