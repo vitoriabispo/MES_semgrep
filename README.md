@@ -21,6 +21,7 @@
 ```
 
 **3. Instale as Dependências**
+   Navege para a pasta ```src``` do repositório e execute:
 ```bash
     pip install -r requirements.txt
 ```
@@ -34,8 +35,8 @@
 Para garantir uma análise consistente e contornar problemas de rede ou de cache, utilizou-se o Semgrep através do Docker e as regras foram fornecidas localmente.
 
 **1. Clone o repositório de regras do Semgrep**
+   Na raíz do repositório, execute:
 ```bash
-    cd .. 
     git clone https://github.com/semgrep/semgrep-rules.git
 
 ```
